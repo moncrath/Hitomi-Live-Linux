@@ -3,6 +3,7 @@
 // hook, dan kursor global. Kenapa bukan Tauri di Linux: lihat Decision Log 2026-10-25.
 
 import { app, BrowserWindow, ipcMain, Menu, nativeImage, net, protocol, screen, Tray } from 'electron';
+import { spawn } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { join, normalize, sep } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -12,17 +13,27 @@ import { installHooks } from './hookSetup.mjs';
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const DIST = join(ROOT, 'app', 'dist');
 const ICON = join(ROOT, 'app', 'src-tauri', 'icons', '128x128.png');
-// ponytail: path repo saat dijalankan dari source; packaging (AppImage, L2) perlu
-// menyalin dist/ikon/notify.mjs sebagai resource dan mengganti path ini.
+// Dari source maupun dari paket (AppImage/deb), tata letak di bawah ROOT sama:
+// `electron-builder.yml` menyalin dist/ikon/notify.mjs ke asar dengan struktur repo.
 const NOTIFY_MJS = join(ROOT, 'hooks', 'notify.mjs');
 
 // Di Wayland native aplikasi tak boleh tahu posisi kursor global maupun memindah
 // window sendiri; lewat XWayland keduanya jalan. Flag `--ozone-platform=x11` HARUS
 // di baris perintah (appendSwitch di sini sudah terlambat, platform sudah dipilih),
-// jadi dipasang di skrip `start`. Tanpa flag itu overlay tetap tampil, tapi
-// tracking mata diam dan posisi awal diabaikan compositor.
-if (process.env.WAYLAND_DISPLAY && !app.commandLine.hasSwitch('ozone-platform')) {
-  console.warn('[shell] jalan di Wayland native: jalankan dengan --ozone-platform=x11');
+// jadi dipasang di skrip `start`. AppImage dijalankan tanpa argumen, jadi bila flag
+// belum ada kita relaunch diri sendiri dengan flag itu. Tanpa flag, overlay tetap
+// tampil, tapi tracking mata diam dan posisi awal diabaikan compositor.
+// Cek `process.argv`, bukan `commandLine.hasSwitch`: Chromium menambahkan sendiri
+// `ozone-platform=wayland` ke commandLine saat memilih platform otomatis.
+if (process.env.WAYLAND_DISPLAY && !process.argv.some((a) => a.startsWith('--ozone-platform'))) {
+  // Di AppImage `execPath` menunjuk ke mount sementara yang lenyap saat proses ini
+  // keluar; `APPIMAGE` menunjuk ke file .AppImage-nya.
+  // `app.relaunch` tak jalan di AppImage (diuji), jadi proses baru dilepas manual.
+  spawn(process.env.APPIMAGE || process.execPath, [...process.argv.slice(1), '--ozone-platform=x11'], {
+    detached: true,
+    stdio: 'ignore',
+  }).unref();
+  app.exit(0);
 }
 
 // Frontend memakai path absolut (/avatar/...), jadi file:// tak bisa dipakai (akan

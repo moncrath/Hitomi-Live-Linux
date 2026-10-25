@@ -4,6 +4,10 @@ Semua perubahan penting proyek ini dicatat di sini.
 
 ## [Unreleased]
 ### Added
+- **Paket Linux: AppImage dan deb.** `npm --prefix electron run pack` membuat keduanya di `release/`
+  (electron-builder, konfigurasi di `electron/electron-builder.yml`). AppImage dipakai di distro apa pun;
+  deb untuk Debian/Ubuntu dan masuk menu aplikasi. Bila dijalankan di Wayland tanpa flag, app
+  meluncurkan ulang dirinya lewat XWayland, jadi AppImage tak perlu argumen.
 - **Port Linux, Fase L1 (KDE Wayland).** Di Linux overlay kini dipaksa jalan lewat XWayland
   (`GDK_BACKEND=x11`, kecuali user sudah men-set sendiri). Dengan begitu posisi awal, always-on-top,
   dan tembus-klik bisa diandalkan. Posisi kursor global dibaca lewat `XQueryPointer` (crate `x11rb`,

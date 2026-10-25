@@ -41,3 +41,6 @@ Thumbs.db
 # berarti terdistribusi permanen. Kalau mau dipublikasikan, putuskan & catat asal-usulnya dulu.
 Character/
 
+
+# Paket Linux hasil build (rilis lewat GitHub Release)
+release/

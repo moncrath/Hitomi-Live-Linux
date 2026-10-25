@@ -54,6 +54,18 @@ it alone. A speech bubble tells you when the hook was just installed, or when No
 
 Claude Code may only pick up a new hook in a new session.
 
+### Or install a package
+
+```bash
+npm --prefix app install && npm --prefix app run build
+npm --prefix electron install
+npm --prefix electron run pack
+```
+
+This writes an AppImage and a `.deb` to `release/`. The AppImage runs on any distro (`chmod +x` it,
+then run it; Fedora may need `fuse2`). The `.deb` installs with `sudo apt install ./release/*.deb` and
+adds Hitomi to your application menu. Node.js still has to be on your system for her hook.
+
 ## Using her
 
 - **Move:** drag her body.
@@ -103,7 +115,7 @@ there's no separate server to start.
 - She runs through XWayland (`npm start` passes `--ozone-platform=x11`), because native Wayland won't
   let an app read the global cursor position or place its own window. While your cursor is over a
   native Wayland window, her eyes keep the last position they saw.
-- There's no AppImage or `.deb` yet. Run her from source as above.
+- There's no prebuilt AppImage or `.deb` to download yet. Build one with `npm --prefix electron run pack`.
 
 ## The persona
 

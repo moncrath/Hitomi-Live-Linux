@@ -1,0 +1,26 @@
+# Paket Linux (AppImage + deb). Tata letak di dalam asar meniru repo (electron/, app/dist,
+# hooks/), jadi `ROOT` di main.mjs ('..' dari electron/) tetap benar tanpa mengubah path.
+appId: dev.hitomi.live
+productName: Hitomi Live
+executableName: hitomi-live
+directories:
+  output: ../release
+extraMetadata:
+  main: electron/main.mjs
+files:
+  - package.json
+  - from: ..
+    to: .
+    filter:
+      - electron/*.mjs
+      - electron/*.cjs
+      - app/dist/**
+      - app/src-tauri/icons/128x128.png
+      - hooks/notify.mjs
+linux:
+  target: [AppImage, deb]
+  category: Utility
+  icon: ../app/src-tauri/icons/icon.png
+  executableArgs: ['--ozone-platform=x11']
+deb:
+  depends: [libgtk-3-0, libnss3, libxss1, libasound2t64 | libasound2]
