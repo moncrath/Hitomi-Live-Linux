@@ -1,0 +1,15 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [{ "Name": "Mirai27x" }],
+        "Category": "System Information",
+        "Description": "Kontrol cepat dan status sistem untuk desktop KDE Plasma",
+        "EnabledByDefault": true,
+        "Icon": "hitomi-hub",
+        "Id": "dev.hitomi.hub",
+        "License": "MIT",
+        "Name": "Hitomi Hub",
+        "Version": "0.1.0"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0"
+}

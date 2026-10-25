@@ -1,0 +1,5 @@
+# Layanan yang ditampilkan di tab Services. Satu nama unit systemd per baris.
+sddm
+NetworkManager
+bluetooth
+ssh

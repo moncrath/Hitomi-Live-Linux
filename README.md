@@ -66,6 +66,22 @@ This writes an AppImage and a `.deb` to `release/`. The AppImage runs on any dis
 then run it; Fedora may need `fuse2`). The `.deb` installs with `sudo apt install ./release/*.deb` and
 adds Hitomi to your application menu. Node.js still has to be on your system for her hook.
 
+### Optional: Hitomi Hub for KDE Plasma
+
+[`plasma/`](plasma/) holds a separate, optional Plasma 6 panel widget that has nothing to do with the
+avatar. It shows brightness and volume sliders, Wi-Fi and Bluetooth toggles, network speed, RAM, GPU and
+CPU, and tabs for your running Claude Code sessions (with how much of the context window each has
+used), systemd services and CI status. Install it only if you want it:
+
+```bash
+./plasma/install.sh              # install, writes only to ~/.local
+./plasma/install.sh --uninstall  # remove
+```
+
+Then add it from *Edit Mode > Add Widgets > Hitomi Hub*. It reads `~/.claude/sessions/*.json`, runs
+`nvidia-smi`, `wpctl`, `nmcli`, `bluetoothctl` and `gh` where they exist, and leaves a section empty when
+a tool is missing. The services it lists are in `plasma/hitomi-hub/contents/code/services.txt`.
+
 ## Using her
 
 - **Move:** drag her body.
