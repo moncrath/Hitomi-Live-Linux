@@ -38,6 +38,12 @@ matter.
 - [Claude Code](https://claude.com/claude-code), in the terminal, the desktop app or an IDE extension.
   The hook is global, so any of them works.
 
+## Download
+
+Prebuilt packages (AppImage and `.deb`, x86-64) are on the
+[Releases page](https://github.com/moncrath/Hitomi-Live-Linux/releases/latest). Otherwise build her from
+source as below.
+
 ## Run it
 
 ```bash
@@ -135,7 +141,7 @@ there's no separate server to start.
 - She runs through XWayland (`npm start` passes `--ozone-platform=x11`), because native Wayland won't
   let an app read the global cursor position or place its own window. While your cursor is over a
   native Wayland window, her eyes keep the last position they saw.
-- There's no prebuilt AppImage or `.deb` to download yet. Build one with `npm --prefix electron run pack`.
+- The packages are unsigned and x86-64 only. Only Debian-based PikaOS on KDE Plasma (Wayland) has been tried.
 
 ## The persona
 
