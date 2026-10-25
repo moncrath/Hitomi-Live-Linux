@@ -51,6 +51,7 @@ Claude Code (kini aplikasi desktop Claude, tab Code)
 
 ## Aset seni ✅ (diterima)
 > **Lisensi (repo Linux, 2026-10-25):** kode = MIT (`LICENSE`); karya karakter, gambar UI, dan ikon app = all rights reserved (`assets/LICENSE`).
+> **Ikon Hitomi Hub (2026-10-26):** `plasma/hitomi-hub/contents/icons/avatar/*.png`, avatar maid kucing monokrom **dibuat user dengan ChatGPT (dibantu AI)**, dipotong dan diubah ukurannya; all rights reserved. Roda gigi `hitomi-hub.svg` buatan sendiri (MIT) = ikon bawaan.
 > **Font:** **Itim** (Cadson Demak, SIL OFL 1.1, `assets/ui/Itim-Regular.ttf` + `OFL-Itim.txt`, dari `github.com/google/fonts`) dengan `size-adjust: 83%`. Font lama **Vividly** (foundry "CLGR", lisensi & asal tak tercatat) dihapus dari repo Linux; ia masih ada di repo Windows lama.
 Layer PNG di `assets/avatar/hitomi/skin/Hitomi/` (**satu-satunya karakter**; desain & konsep orisinal user,
 render gambar dibantu AI (ChatGPT), pemisahan layer + pivot + rig dikerjakan user — lihat Decision Log 2026-09-10), kanvas

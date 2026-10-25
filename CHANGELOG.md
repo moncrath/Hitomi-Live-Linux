@@ -8,7 +8,8 @@ Semua perubahan penting proyek ini dicatat di sini.
   slider cahaya dan suara, toggle Wi-Fi dan Bluetooth, kecepatan jaringan, RAM/GPU/CPU, serta tab
   Working (sesi Claude Code beserta konteks terpakai), Services, dan CI. Dipasang dengan
   `plasma/install.sh` (hanya menulis ke `~/.local`, bisa dilepas dengan `--uninstall`). Ikon bawaannya
-  roda gigi; gambar sendiri bisa ditaruh sebagai `hitomi-hub.png` di folder ikon `hicolor`.
+  roda gigi; `--avatar` memasang avatar maid telinga kucing (gambar buatan ChatGPT, all rights
+  reserved, enam ukuran kecil sekitar 134 KB).
 - **Paket Linux: AppImage dan deb.** `npm --prefix electron run pack` membuat keduanya di `release/`
   (electron-builder, konfigurasi di `electron/electron-builder.yml`). AppImage dipakai di distro apa pun;
   deb untuk Debian/Ubuntu dan masuk menu aplikasi. Bila dijalankan di Wayland tanpa flag, app

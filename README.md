@@ -74,9 +74,13 @@ CPU, and tabs for your running Claude Code sessions (with how much of the contex
 used), systemd services and CI status. Install it only if you want it:
 
 ```bash
-./plasma/install.sh              # install, writes only to ~/.local
+./plasma/install.sh              # install with a gear icon, writes only to ~/.local
+./plasma/install.sh --avatar     # same, with the cat-eared maid avatar as the icon
 ./plasma/install.sh --uninstall  # remove
 ```
+
+The avatar was generated with ChatGPT and is all rights reserved, like the other artwork here (see
+`plasma/hitomi-hub/contents/icons/avatar/LICENSE`). The gear is the default for that reason.
 
 Then add it from *Edit Mode > Add Widgets > Hitomi Hub*. It reads `~/.claude/sessions/*.json`, runs
 `nvidia-smi`, `wpctl`, `nmcli`, `bluetoothctl` and `gh` where they exist, and leaves a section empty when
