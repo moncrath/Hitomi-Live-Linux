@@ -1,0 +1,10 @@
+{
+  "note": "Daftar skin (set tekstur karakter). 'id' = nama folder di skin/. Tambah skin baru: buat folder skin/<id>/ berisi PNG layer, lalu daftarkan di sini. Skin boleh punya skin/<id>/manifest.json sendiri bila bentuk/aksesorisnya beda (nama layer bebas, diatur lewat 'roles'); tanpa itu dipakai manifest bersama di ../manifest.json.",
+  "skins": [
+    {
+      "id": "Hitomi",
+      "label": "Hitomi",
+      "note": "skin orisinal — maid gothic, telinga kelinci, ahoge, rantai liontin"
+    }
+  ]
+}

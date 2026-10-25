@@ -1,0 +1,181 @@
+{
+  "name": "TEMPLATE",
+  "canvas": { "width": 1080, "height": 1440 },
+
+  "note": [
+    "TEMPLATE / manifest bersama — BUKAN skin yang dipakai.",
+    "Dipakai hanya oleh skin yang TIDAK punya `skin/<id>/manifest.json` sendiri, dan hanya cocok bila",
+    "skin itu memakai PENAMAAN BAWAAN di bawah. Karakter dengan bentuk/aksesoris berbeda sebaiknya",
+    "punya manifest sendiri — salin file ini, lalu sesuaikan. Contoh nyata: skin/Hitomi/manifest.json.",
+    "",
+    "ATURAN UMUM:",
+    "- Semua layer satu kanvas (lihat `canvas`), anchor (0,0) -> registrasi otomatis, tanpa offset manual.",
+    "- Nomor di depan nama layer = urutan tumpuk DAN penentu grup: nomor >= 8 ikut TILT KEPALA.",
+    "- `z_order_idle` menentukan urutan gambar (bawah -> atas). Layer yang tak disebut TIDAK tampil.",
+    "- Layer yang disebut tapi filenya tak ada akan di-skip, KECUALI layer inti (lihat `roles`).",
+    "- Cek kelengkapan: `node scripts/check-skins.mjs`."
+  ],
+
+  "roles": {
+    "note": "Nama layer berperan khusus. Timpa di sini bila skin memakai nama lain (mis. body: '7a_main_body'). body/headbase/mouth + `eyes.base` = layer INTI: tak ada -> avatar gagal dimuat.",
+    "body": "7_body",
+    "headbase": "8_headbase",
+    "mouth": "9b_mouth_closed",
+    "bangs": "12_bangs"
+  },
+
+  "z_order_idle": [
+    "1a_back-accessories_left", "1b_back-accessories_right",
+    "2_back-hair", "3_lefthair_back", "4_righthair_back",
+    "5_lefthand", "6_righthand", "7_body", "7b_body_acessories",
+    "8_headbase",
+    "9b_mouth_closed",
+    "10_eyes_background", "10_eyes_pupil_left", "10_eyes_pupil_right", "10_eyes_frame",
+    "11_side_small_hair", "12_bangs",
+    "13_left_eyebrow", "14_right_eyebrow",
+    "15a_head_accessories", "15b_head_accessories"
+  ],
+
+  "groups": {
+    "note": [
+      "Tiap anggota grup dinamis menerima opsi berikut (semua opsional kecuali pivot):",
+      "  pivot   [x,y] WAJIB — titik NEMPEL layer ke tubuh/kepala; jadi poros putar sekaligus",
+      "                 pangkal lengkungan. Ambil dari tepi alpha yang menempel, BUKAN tengah bbox.",
+      "  gain    pengali kekuatan gerak (1 = normal, 0.1 = nyaris diam).",
+      "  bend    pengali besar lengkungan mesh (1 = normal, 0 = kaku).",
+      "  deform  true = dirender sebagai mesh yang bisa melengkung (default: rambut ya, lainnya tidak).",
+      "  offset  [dx,dy] geser layer tanpa ekspor ulang aset. dx positif = KE KANAN (sumbu layar),",
+      "                 dy positif = KE BAWAH. Poros ikut bergeser bersama layernya."
+    ],
+    "head_group": {
+      "note": "Semua layer bernomor >= 8 ikut tilt kepala. `pivot` = poros leher (dasar tengah headbase).",
+      "pivot": [534, 790],
+      "members": ["8_headbase", "eyes*", "9*_mouth*", "11*", "12*", "13*", "14*", "15*"]
+    },
+    "hair_dynamic": {
+      "note": "Rambut: pegas + mesh melengkung. Potongan DI DALAM grup kepala (nomor >= 8) otomatis dihitung RELATIF terhadap kepala supaya geraknya tak dobel.",
+      "members": {
+        "2_back-hair":      { "pivot": [534, 255] },
+        "3_lefthair_back":  { "pivot": [380, 235] },
+        "4_righthair_back": { "pivot": [690, 235] },
+        "12_bangs":         { "pivot": [536, 300] }
+      }
+    },
+    "back_dynamic": {
+      "note": "Sayap/panel belakang: flap idle (sine, mirror kiri-kanan) + condong ikut kepala. Pivot di pangkal atas dekat punggung. Hapus grup ini bila skin tak punya.",
+      "members": {
+        "1a_back-accessories_left":  { "pivot": [524, 866] },
+        "1b_back-accessories_right": { "pivot": [528, 866] }
+      }
+    },
+    "cloth_dynamic": {
+      "note": "Aksesoris baju/rantai: pendulum halus. Tali panjang boleh `deform: true` supaya meliuk.",
+      "members": {
+        "7b_body_acessories": { "pivot": [535, 1058] }
+      }
+    },
+    "head_accessory_dynamic": {
+      "note": "Aksesoris kepala (plume/telinga/ahoge) di DALAM grup kepala: tertinggal sesaat lalu menyusul. Semua diayun SEARAH, berlawanan arah gerak kepala.",
+      "members": {
+        "15a_head_accessories": { "pivot": [522, 400] }
+      }
+    },
+    "static": {
+      "note": "Sekadar dokumentasi — layer tanpa animasi sendiri.",
+      "members": ["5_lefthand", "6_righthand", "7_body", "15b_head_accessories"]
+    }
+  },
+
+  "eyes": {
+    "note": "`base` = mata dasar berpupil terpisah (tracking hidup). `variants` = mata UTUH yang menggantikan seluruhnya (pupil ikut beku) — cukup untuk kedip & animasi ngomong. Ekspresi lain sebaiknya lewat `pupil_expressions` supaya tracking tetap jalan.",
+    "base": ["10_eyes_background", "10_eyes_pupil_left", "10_eyes_pupil_right", "10_eyes_frame"],
+    "pupils": {
+      "note": "`center` = pusat pupil; jadi poros skala/putar ekspresi. `max_offset` = batas geser pupil dalam soket.",
+      "left":  { "file": "10_eyes_pupil_left",  "center": [425, 624] },
+      "right": { "file": "10_eyes_pupil_right", "center": [641, 624] },
+      "max_offset": [28, 18]
+    },
+    "variants": {
+      "note": "WAJIB minimal `closed` (dipakai kedip) dan `closed_happy` (animasi ngomong).",
+      "closed":       "10a_eyes_closed",
+      "closed_happy": "10b_eyes_closed_happy"
+    },
+    "pupil_expressions": {
+      "note": [
+        "Ekspresi per-state lewat pupil. Semua opsional:",
+        "  scale   1 = normal, <1 mengecil (kaget/tajam), >1 membesar (fokus/love)",
+        "  offsetX/offsetY  px; X+ ke kanan, Y+ ke bawah (mis. melirik menghindar)",
+        "  shake   amplitudo getar acak (px) — kesan gemetar",
+        "  spin    rad/detik (mis. pupil spiral saat pusing)",
+        "  pulse   amplitudo denyut skala (mis. berdebar saat love)",
+        "  texture { left, right } tekstur pupil khusus; tanpa ini pakai pupil normal"
+      ],
+      "mikir":   { "scale": 0.95, "offsetY": -7 },
+      "ngoding": { "scale": 1.08 },
+      "error":   { "scale": 0.55, "shake": 5 },
+      "marah":   { "scale": 0.68, "offsetY": 5 },
+      "minder":  { "scale": 0.92, "offsetX": 12, "offsetY": -6 }
+    }
+  },
+
+  "mouths": {
+    "note": "Kunci logis -> nama layer. `talk_open`/`talk_closed` dipakai animasi ngomong.",
+    "open":    "9a_mouth_open",
+    "closed":  "9b_mouth_closed",
+    "grin":    "9c_mouth_grin",
+    "happy2":  "9d_mouth_happy2",
+    "happy1":  "9e_mouth_happy1",
+    "sad":     "9f_mouth_sad",
+    "shocked": "9g_mouth_shocked",
+    "pout":    "9h_mouth_pout",
+    "angry":   "9i_mouth_angry",
+    "frawl":   "9j_mouth_frawl",
+    "bleeh":   "9k_mouth_bleeh",
+    "talk_open":   "9aa_mouth_open",
+    "talk_closed": "9ab_mouth_closed"
+  },
+
+  "brows": { "left": "13_left_eyebrow", "right": "14_right_eyebrow", "static": true },
+
+  "tracking": {
+    "note": "Dokumentasi perilaku; angka efektif ada di `eyes.pupils.max_offset` & TUNING.eyes.",
+    "enabled_when": "eyes == base",
+    "target": "cursor",
+    "max_offset": [28, 18]
+  },
+
+  "states": {
+    "note": "eyes: 'base' atau kunci di `eyes.variants`. mouth: satu kunci; atau `mouths: [...]` untuk dipilih acak tiap state diterapkan (bikin terasa hidup).",
+    "idle":    { "eyes": "base",         "mouth": "closed",  "tracking": true },
+    "talking": { "eyes": "base",         "mouth": "open",    "tracking": true },
+    "mikir":   { "eyes": "base",         "mouths": ["pout", "bleeh"],   "tracking": true },
+    "ngoding": { "eyes": "base",         "mouths": ["happy1", "frawl"], "tracking": true },
+    "sukses":  { "eyes": "closed_happy", "mouth": "grin",    "tracking": false },
+    "error":   { "eyes": "base",         "mouth": "shocked", "tracking": true },
+    "marah":   { "eyes": "base",         "mouth": "angry",   "tracking": true },
+    "minder":  { "eyes": "base",         "mouth": "pout",    "tracking": true },
+    "dizzy":   { "eyes": "base",         "mouth": "sad",     "tracking": true },
+    "love":    { "eyes": "base",         "mouth": "happy2",  "tracking": true }
+  },
+
+  "blink": { "overlay": "10a_eyes_closed", "only_when": "eyes == base", "interval_ms": [2500, 6000], "duration_ms": 110 },
+
+  "events": {
+    "note": "Peta hook Claude Code -> state. `flash` = tampil sekejap lalu balik ke `then`.",
+    "SessionStart":      { "flash": "love", "then": "idle" },
+    "UserPromptSubmit":  { "state": "mikir" },
+    "PreToolUse":        { "state": "ngoding" },
+    "PostToolUse":       { "state": "ngoding", "on_error": "error" },
+    "Notification":      { "state": "mikir" },
+    "Stop":              { "flash": "sukses", "then": "idle" },
+    "coding_error":      { "flash": "dizzy", "then": "idle" },
+    "error_streak":      { "flash": "marah", "then": "idle" }
+  },
+
+  "bubble": {
+    "note": "Referensi gaya bubble teks; styling sebenarnya ada di app/src/ui/HitomiBubble.ts.",
+    "shape": "rounded_rect", "corner_radius": 24, "padding": [20, 24],
+    "min_w": 160, "max_w": 420, "tail": [32, 28],
+    "fill": "#3e2271", "border": "#fab3df", "text": "#ffffff"
+  }
+}

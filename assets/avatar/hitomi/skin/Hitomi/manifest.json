@@ -1,0 +1,160 @@
+{
+  "name": "hitomi-original",
+  "canvas": { "width": 1080, "height": 1440 },
+  "note": "Manifest KHUSUS skin Hitomi (orisinal). Bentuk & aksesorisnya beda dari Roccia: badan bernama 7a, ada telinga kelinci, bandana depan-belakang, ahoge, dan dua rantai. Pivot dihitung dari baris alpha terluar tiap layer (titik nempelnya), bukan dikira-kira.",
+
+  "roles": {
+    "body": "7a_main_body"
+  },
+
+  "z_order_idle": [
+    "2_back-hair", "3_lefthair_back", "4_righthair_back",
+    "5_lefthand", "6_righthand", "7a_main_body", "7b_body_chain", "7c_body_chain_bunny",
+    "11a_head_accA_left-bunny-ear", "11b_head_accA_right-bunny-ear",
+    "11c_head_accA_backbandana",
+    "8_headbase",
+    "9b_mouth_closed",
+    "10_eyes_background", "10_eyes_pupil_left", "10_eyes_pupil_right", "10_eyes_frame",
+    "11_side_small_hair-left", "11_side_small_hair-right",
+    "12_bangs", "12a_front-bandana-acc",
+    "13_left_eyebrow", "14_right_eyebrow",
+    "15_small-hair-top"
+  ],
+
+  "groups": {
+    "head_group": {
+      "note": "Semua layer bernomor >= 8 ikut tilt kepala; poros di leher (dasar tengah headbase).",
+      "pivot": [534, 790],
+      "members": ["8_headbase", "eyes*", "9*_mouth*", "11*", "12*", "13*", "14*", "15*"]
+    },
+    "hair_dynamic": {
+      "note": "Rambut = mesh (sway + melengkung). Pivot = titik NEMPEL di kepala, yaitu tepi DALAM pita-atas tiap potong — bukan tengah bbox (kalau dari tengah, twin-tail terlihat lepas dari kepala). `gain` mengecilkan gerak per potong: rambut belakang Hitomi pendek jadi hampir tak bergerak; rambut samping ada di dalam grup kepala sehingga geraknya dihitung relatif.",
+      "members": {
+        "2_back-hair":              { "pivot": [550, 332], "gain": 0.10, "bend": 0.35 },
+        "3_lefthair_back":          { "pivot": [332, 288], "gain": 0.25, "bend": 0.6, "offset": [40, 0] },
+        "4_righthair_back":         { "pivot": [730, 288], "gain": 0.25, "bend": 0.6 },
+        "11_side_small_hair-left":  { "pivot": [305, 500], "gain": 0.9,  "bend": 1.1 },
+        "11_side_small_hair-right": { "pivot": [771, 500], "gain": 0.9,  "bend": 1.1 },
+        "12_bangs":                 { "pivot": [513, 281] }
+      }
+    },
+    "cloth_dynamic": {
+      "note": "Rantai badan. 7b = tali panjang -> `deform` supaya MELIUK seperti tali, bukan berayun kaku. 7c = liontin kelinci di ujung tali; gain lebih besar + tanpa deform (benda padat) supaya terlihat menggantung mengikuti ujung rantai.",
+      "members": {
+        "7b_body_chain":       { "pivot": [642, 1141], "deform": true, "gain": 1.0, "bend": 1.3 },
+        "7c_body_chain_bunny": { "pivot": [733, 1247], "gain": 1.6 }
+      }
+    },
+    "hand_dynamic": {
+      "note": "Tangan: pivot di titik BAHU (tengah pita-atas layer) supaya rotasi kecil berayun dari bahu, bukan dari pojok kanvas.",
+      "members": {
+        "5_lefthand":  { "pivot": [374, 855] },
+        "6_righthand": { "pivot": [698, 855] }
+      }
+    },
+    "head_accessory_dynamic": {
+      "note": "Telinga kelinci kiri/kanan (pivot di PANGKAL bawah, tempat nempel di kepala) + ahoge. Semuanya diayun SEARAH dan berlawanan arah gerak kepala (terseret), bukan mirror.",
+      "members": {
+        "11a_head_accA_left-bunny-ear":  { "pivot": [319, 392] },
+        "11b_head_accA_right-bunny-ear": { "pivot": [767, 392] },
+        "15_small-hair-top":             { "pivot": [545, 328] }
+      }
+    },
+    "static": {
+      "note": "Tangan di belakang badan; badan (napas); bandana depan/belakang ikut kepala tanpa sway. Telinga kelinci ditaruh DI BAWAH bandana belakang di z_order supaya pangkalnya tertutup.",
+      "members": ["5_lefthand", "6_righthand", "7a_main_body", "11c_head_accA_backbandana", "12a_front-bandana-acc"]
+    }
+  },
+
+  "eyes": {
+    "base": ["10_eyes_background", "10_eyes_pupil_left", "10_eyes_pupil_right", "10_eyes_frame"],
+    "pupils": {
+      "left":  { "file": "10_eyes_pupil_left",  "center": [425, 622] },
+      "right": { "file": "10_eyes_pupil_right", "center": [640, 623] },
+      "max_offset": [28, 18]
+    },
+    "note": "Variant mata utuh sengaja tinggal dua (tutup & tutup-senang) — dipakai kedip dan animasi ngomong. Ekspresi lain kini lewat PUPIL supaya eye-tracking tetap hidup saat berekspresi.",
+    "variants": {
+      "closed":       "10a_eyes_closed",
+      "closed_happy": "10b_eyes_closed_happy"
+    },
+
+    "pupil_expressions": {
+      "note-scale": "1 = normal, <1 mengecil (kaget/tajam), >1 membesar (fokus/love)",
+      "note-offset": "px di kanvas 1080x1440; offsetY + = melihat ke bawah",
+      "mikir":   { "scale": 0.95, "offsetY": -7 },
+      "ngoding": { "scale": 1.08 },
+      "error":   { "scale": 0.55, "shake": 5 },
+      "marah":   { "scale": 0.68, "offsetY": 5 },
+      "minder":  { "scale": 0.92, "offsetX": 12, "offsetY": -6 },
+      "dizzy":   {
+        "scale": 1.05, "spin": 3.2,
+        "texture": { "left": "10_eyes_dizzy_pupil_left", "right": "10_eyes_dizzy_pupil_right" }
+      },
+      "love":    {
+        "scale": 1.28, "pulse": 0.12,
+        "texture": { "left": "10_eyes_love_pupil_left", "right": "10_eyes_love_pupil_right" }
+      }
+    }
+  },
+
+  "mouths": {
+    "open":    "9a_mouth_open",
+    "closed":  "9b_mouth_closed",
+    "grin":    "9c_mouth_grin",
+    "happy2":  "9d_mouth_happy2",
+    "happy1":  "9e_mouth_happy1",
+    "sad":     "9f_mouth_sad",
+    "shocked": "9g_mouth_shocked",
+    "pout":    "9h_mouth_pout",
+    "angry":   "9i_mouth_angry",
+    "frawl":   "9j_mouth_frawl",
+    "bleeh":   "9k_mouth_bleeh",
+    "talk_open":   "9aa_mouth_open",
+    "talk_closed": "9ab_mouth_closed"
+  },
+
+  "brows": { "left": "13_left_eyebrow", "right": "14_right_eyebrow", "static": true },
+
+  "tracking": {
+    "note": "Hanya aktif saat eyes=base (idle/mikir/ngoding). Variant eye = beku otomatis.",
+    "enabled_when": "eyes == base",
+    "target": "cursor",
+    "max_offset": [28, 18],
+    "ease": 0.15
+  },
+
+  "states": {
+    "idle":    { "eyes": "base",         "mouth": "closed",  "tracking": true },
+    "talking": { "eyes": "base",         "mouth": "open",    "tracking": true },
+    "mikir":   { "eyes": "base",         "mouths": ["pout", "bleeh"],   "tracking": true },
+    "ngoding": { "eyes": "base",         "mouths": ["happy1", "frawl"], "tracking": true },
+    "sukses":  { "eyes": "closed_happy", "mouth": "grin",    "tracking": false },
+    "error":   { "eyes": "base",         "mouth": "shocked", "tracking": true },
+    "marah":   { "eyes": "base",         "mouth": "angry",   "tracking": true },
+    "minder":  { "eyes": "base",         "mouth": "pout",    "tracking": true },
+    "dizzy":   { "eyes": "base",         "mouth": "sad",     "tracking": true },
+    "love":    { "eyes": "base",         "mouth": "happy2",  "tracking": true }
+  },
+
+  "blink": { "overlay": "10a_eyes_closed", "only_when": "eyes == base", "interval_ms": [2500, 6000], "duration_ms": 110 },
+
+  "events": {
+    "note": "Peta hook Claude Code -> state. flash = tampil sekejap lalu balik ke state dasar.",
+    "SessionStart":      { "flash": "love", "then": "idle" },
+    "UserPromptSubmit":  { "state": "mikir" },
+    "PreToolUse":        { "state": "ngoding" },
+    "PostToolUse":       { "state": "ngoding", "on_error": "error" },
+    "Notification":      { "state": "mikir" },
+    "Stop":              { "flash": "sukses", "then": "idle" },
+    "coding_error":      { "flash": "dizzy", "then": "idle" },
+    "error_streak":      { "flash": "marah", "then": "idle" }
+  },
+
+  "bubble": {
+    "shape": "rounded_rect", "corner_radius": 24, "padding": [20, 24],
+    "min_w": 160, "max_w": 420, "tail": [32, 28],
+    "fill": "#FFF6FA", "border": "#FF6FA5", "border_w": 3,
+    "text": "#3A2B33", "font": "Nunito/Quicksand 16-18"
+  }
+}

@@ -1,0 +1,28 @@
+Hitomi artwork and UI images: all rights reserved
+
+Copyright (c) 2026 Mirai27x
+
+The MIT License at the repository root covers the source code. It does NOT
+cover the artwork listed here.
+
+All rights reserved:
+- Every image (`*.png`) in this folder, including the Hitomi character layers
+  in `avatar/`, the template previews in `avatar/hitomi/_template/`, the UI
+  images in `ui/`, and `app-icon.png`.
+- The app icons generated from that artwork in `app/src-tauri/icons/`.
+
+About the character: concept and design by the author; the artwork was rendered
+with AI assistance (ChatGPT), then split into layers, pivoted and rigged by
+hand. Purely AI-rendered images may not qualify for copyright protection in
+some jurisdictions; the layer split, pivots and rig are the author's own work.
+
+You may view these files and run the app with them unmodified. Do not reuse,
+redistribute or modify the character or its artwork outside this project
+without permission.
+
+Covered by the root MIT License (code and data, not artwork):
+- `*.py`, `*.json` and `README.md` files in this folder.
+
+Third-party, under its own license:
+- `ui/Itim-Regular.ttf` : Itim by Cadson Demak, SIL Open Font License 1.1.
+  Full text in `ui/OFL-Itim.txt`.

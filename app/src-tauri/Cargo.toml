@@ -1,0 +1,40 @@
+[package]
+name = "app"
+version = "1.2.0"
+description = "Hitomi Live — overlay PNGtuber avatar yang bereaksi ke event Claude Code"
+authors = ["Mirai27x"]
+license = ""
+repository = ""
+edition = "2021"
+rust-version = "1.77.2"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.6.3", features = [] }
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+log = "0.4"
+tauri = { version = "2.11.3", features = ["tray-icon"] }
+tauri-plugin-log = "2"
+# Bridge in-process: HTTP kecil localhost yang menampung event hook (dulu proses Node terpisah).
+tiny_http = "0.12"
+
+# Baca posisi kursor global (dibutuhkan karena overlay click-through =
+# webview tak menerima mousemove; tracking mata/kepala tetap perlu posisi kursor).
+[target.'cfg(windows)'.dependencies]
+windows = { version = "0.58", features = [
+  "Win32_Foundation",
+  "Win32_UI_WindowsAndMessaging",
+] }
+
+# Linux: overlay jalan di XWayland (lihat main.rs), kursor dibaca lewat XQueryPointer.
+# Implementasi pure Rust (tanpa libxcb).
+[target.'cfg(target_os = "linux")'.dependencies]
+x11rb = "0.13"

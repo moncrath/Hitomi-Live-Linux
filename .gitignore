@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+build/
+out/
+
+# Tauri / Rust
+src-tauri/target/
+
+# Exe Windows (Tauri) tidak ikut di repo Linux: ada di moncrath/Hitomi-Live.
+# Binary rilis Linux (AppImage/deb) nanti lewat GitHub Release, bukan di-commit.
+*.exe
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+
+# Logs & OS
+*.log
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Claude Code local settings (path mesin, jangan di-commit)
+.claude/settings.local.json
+
+# Config MCP lokal (server per-mesin, mis. Playwright)
+.mcp.json
+
+# Artefak Playwright MCP (screenshot/log uji)
+.playwright-mcp/
+
+# Bahan desain karakter (PSD + render ChatGPT, ~20MB). Repo ini publik: masuk history
+# berarti terdistribusi permanen. Kalau mau dipublikasikan, putuskan & catat asal-usulnya dulu.
+Character/
+

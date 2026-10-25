@@ -1,0 +1,23 @@
+{
+  "name": "hitomi-live-app",
+  "private": true,
+  "version": "1.2.0",
+  "type": "module",
+  "description": "Overlay PNGtuber (2.5D) Hitomi — renderer pixi.js (Fase 1a)",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.11.1",
+    "pixi.js": "^8.6.6"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.11.4",
+    "@types/node": "^22.20.1",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  }
+}
