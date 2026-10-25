@@ -19,10 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-Scope: this license covers the source code only. The Hitomi character artwork,
-the UI images under `assets/` and the app icons under `app/src-tauri/icons/` are
-NOT covered; see `assets/LICENSE`. The bundled Itim font is under the SIL Open
-Font License 1.1 (`assets/ui/OFL-Itim.txt`).

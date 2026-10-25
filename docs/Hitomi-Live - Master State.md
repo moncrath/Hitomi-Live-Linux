@@ -120,5 +120,6 @@ entri, atau saat menemukan drift.** Riwayatnya utuh, nol entri dihapus.
    *(item "uji end-to-end di sesi coding Antigravity asli" dihapus 2026-09-13 — pindah ke VS Code; lihat Decision Log.)*
 
 ## References
+- **Repo Linux (publik, sejak 2026-10-25):** https://github.com/moncrath/Hitomi-Live-Linux (remote `origin`). Repo Windows / history lama: https://github.com/moncrath/Hitomi-Live (remote `upstream`; branch lokal `windows-history`).
 - AIRI — https://github.com/moeru-ai/airi (inspirasi avatar; paket `stage-ui-live2d`, `stage-ui-three`)
 - pixi.js — render 2D
