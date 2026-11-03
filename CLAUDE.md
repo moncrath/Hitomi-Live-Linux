@@ -19,6 +19,7 @@
 - Nilai lisensi terhadap **distribusi sebenarnya** (repo publik / rilis / exe dibagikan = distribusi). *"Boleh dipakai pribadi" ≠ "boleh didistribusikan"*. Privat→publik → audit ulang, premis lama gugur.
 - Repo publik tanpa `LICENSE` = hak cipta penuh. Bukan maksud user → **angkat sebagai keputusan**, jangan pilih lisensi sendiri.
 - Catat asal-usul tiap aset di Master State (buatan sendiri · dibantu AI · pihak ketiga + lisensi). Jangan overclaim: "orisinal" ≠ "digambar tangan"; gambar murni AI mungkin tak berhak cipta.
+- **Provenance AI (`remove-ai-marks`):** dipakai **hanya bila diminta**, terbatas pada privasi & hygiene file milik user: strip EXIF/XMP/doc props, buang Unicode tak terlihat. **Tidak** menghapus watermark provenance AI (SynthID, C2PA Content Credentials, watermark pixel/audio) dan tak dipakai untuk menyamarkan konten AI sebagai buatan manusia, karena itu bertentangan dengan pencatatan "dibantu AI" di atas. Butuh service lokal yang **belum dipasang**; skill berhenti di `/health` sampai service diaudit & dipasang.
 
 ## 3. Dokumentasi
 - Tiap proyek: **`<Nama> - Master State.md` (SSOT)** · `README.md` · `CHANGELOG.md`. Baca Master State di awal sesi; update atomik bareng kode.
@@ -30,6 +31,7 @@
 1. **Memori** (`~/.claude/projects/<slug>/memory/`): baca `MEMORY.md` di awal sesi, recall sebelum berasumsi. Hal "pernah dibahas" tak ada di memori → cari di transkrip `~/.claude/projects/<slug>/*.jsonl` sebelum nanya/nebak.
 2. **Root-cause, bukan retry buta** — gagal 2× sama → ganti strategi · temuan bertentangan asumsi → stop & lapor.
 3. **`caveman` SELALU AKTIF di chat:** inti dulu · pre-tool maks 1 kalimat · tanpa trailing summary · 1 rekomendasi, bukan menu. `ultracave` bila diminta; "stop caveman"/"normal mode" → prosa biasa. **Prosa penuh** untuk peringatan keamanan, konfirmasi destruktif, dan semua yang tersimpan di luar chat (kode, komentar, commit, docs, memori). Larangan emoji/sapaan caveman dikecualikan untuk persona tipis §5.
+   **`clean-user-facing-text` SELALU AKTIF untuk prosa pembaca** (README, CHANGELOG, docs publik, copy UI, catatan rilis): jadi pass terakhir sebelum diserahkan. Layer A (audit Unicode) selalu jalan; rewrite Layer B hanya bila `density_tier` = `high`, dan dilewati bila teks sudah ditulis ulang `humanizer` di tugas yang sama (cukup ukur ulang). Kode, perintah, path, identifier, commit (`caveman-commit`), chat, Master State/Decision Log, dan memori tidak disentuh. Fakta, angka, disclosure, dan suara penulis wajib utuh; jangan pernah klaim hasilnya "terbukti buatan manusia" atau "tak terdeteksi". Script dijalankan dengan `python3 -I`.
 4. **Reflection** — usai tugas besar: 1 baris "bisa lebih baik"; simpan ke memori bila berharga.
 5. **Spec debt** — dikoreksi hal sama ≥3× → aturan permanen. Workflow matang & berulang → jadikan skill di `~/.claude/skills/`.
 6. **Sesi simetris** — *Start:* memori + Master State + `git status`, lapor delta. *End:* update docs, simpan pelajaran, sebut next step.
